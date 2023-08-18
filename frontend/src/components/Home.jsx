@@ -36,7 +36,7 @@ const Home = ({ selectedDocument }) => {
   }, [selectedDocument]);
   
 useEffect(() => {
-    fetch('https://educare-1.onrender.com//api/getData')
+    fetch('https://get-3dmz.onrender.com///api/getData')
       .then(response => response.json())
       .then(data => {
         setAllFields(data); // Assuming the data structure matches what you need
