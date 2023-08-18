@@ -1,0 +1,150 @@
+/* Home.css */
+
+/* Image Gallery */
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.gallery-image-container {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.gallery-image {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+
+
+
+
+
+
+
+
+/* Add headings to sections */
+.section-heading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+/* Sidebar Styles */
+.show-sidebar {
+  width: 300px;
+}
+
+
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: -300px;
+  width: 300px;
+  height: 100%;
+
+  background-color: #1c1717;
+  overflow-y: auto;
+  transition: left 0.3s ease-in-out;
+}
+/* Scroll Behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* Sidebar Toggle Button */
+.sidebar-toggle {
+  margin-top: 10px;
+  background-color: #1a202c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.sidebar-toggle:hover {
+  background-color: #2d3748;
+}
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar-field {
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.sidebar-field:hover {
+  background-color: #d7bbbb;
+}
+
+.sidebar-field.selected {
+  background-color: #549f2f;
+}
+
+.close-sidebar {
+  width: 100%;
+  padding: 8px 16px;
+  background-color: #2d1010;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+
+
+.close-sidebar:hover {
+  background-color: #1f273d;
+}
+
+
+/* Style for the ExpandVue button */
+/* Style for the ExpandVue button */
+.sidebar-toggle {
+  visibility: visible;
+  font-size: 14px;
+  font-weight: bold;
+  color: #007bff; /* Blue color for a modern look */
+  text-decoration: none;
+  padding: 8px 16px; /* Increased padding for a more clickable area */
+  border: 2px solid #007bff; /* Add a border */
+  border-radius: 6px; /* Rounded corners */
+  background-color: transparent; /* Transparent background */
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Smooth transitions */
+}
+
+.sidebar-toggle:hover {
+  background-color: #007bff; /* Background color on hover */
+  color: white; /* Text color on hover */
+}
+
+/* Style for the Compiler button */
+.compiler-button {
+  visibility: visible;
+  font-size: 14px;
+  font-weight: bold;
+  color: #28a745; /* Green color for a vibrant feel */
+  text-decoration: none;
+  padding: 8px 16px; /* Increased padding for a more clickable area */
+  border: 2px solid #28a745; /* Add a border */
+  border-radius: 6px; /* Rounded corners */
+  background-color: transparent; /* Transparent background */
+  margin-left: 10px;
+  margin-top: 10px; /* Add margin to shift the button down */
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Smooth transitions */
+}
+
+.compiler-button:hover {
+  background-color: #28a745; /* Background color on hover */
+  color: white; /* Text color on hover */
+}
