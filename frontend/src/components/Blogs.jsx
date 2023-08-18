@@ -32,7 +32,7 @@ const Blogs = () => {
 
   const fetchData = async (collection) => {
     try {
-      const response = await fetch(`https://educare-1.onrender.com/api/myblogs/${collection}`);
+      const response = await fetch(`https://get-3dmz.onrender.com/api/${collection}`);
       const responseData = await response.json();
       setBlogsData((prevData) => ({
         ...prevData,
