@@ -1,12 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
+const User = require('./models/user'); // Import your User model
+
 require('dotenv').config();
 
 const app = express();
 app.use(cors());
-
-const port = process.env.PORT || 5000;
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Connect to MongoDB (mydb)
 const mongoURIMyDB = process.env.MONGODB_URI_MYDB;
@@ -16,25 +22,56 @@ mongoose.connect(mongoURIMyDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => {
-  console.log('Connected to MongoDB (mydb)');
-})
-.catch(error => {
-  console.error('Error connecting to MongoDB (mydb):', error);
-});
+.then(() => console.log('Connected to MongoDB (mydb)'))
+.catch(error => console.error('Error connecting to MongoDB (mydb):', error));
 
 mongoose.connect(mongoURIMyBlogs, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => {
-  console.log('Connected to MongoDB (myblogs)');
-})
-.catch(error => {
-  console.error('Error connecting to MongoDB (myblogs):', error);
+.then(() => console.log('Connected to MongoDB (myblogs)'))
+.catch(error => console.error('Error connecting to MongoDB (myblogs):', error));
+
+// Passport configuration
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use(require('express-session')({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: false,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Signup Route
+app.post('/signup', async (req, res) => {
+  try {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const user = new User({
+      username: req.body.username,
+      password: hashedPassword,
+    });
+    await user.save();
+    res.status(201).json({ message: 'User created successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred' });
+  }
 });
 
-// Models for all collections
+// Login Route
+app.post('/login', passport.authenticate('local'), (req, res) => {
+  res.json({ message: 'Login successful' });
+});
+
+// Logout Route
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.json({ message: 'Logged out' });
+});
+
 const AgeOfAI = mongoose.model('ageofai', {
   title: String,
   overview: [String],
@@ -130,6 +167,7 @@ app.use((req, res) => {
 });
 
 // Start the server
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
